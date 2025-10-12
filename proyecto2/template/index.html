@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>A.I. Artificial Intelligence - A Film Analysis</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Exo+2:wght@600&family=Rajdhani:wght@500&family=Inter&family=Work+Sans&family=Space+Mono&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00d9ff',
+                        'background-dark': '#0a0e27',
+                        'text-primary': '#ffffff',
+                        'text-secondary': '#8b9db5',
+                    },
+                    fontFamily: {
+                        display: ['Orbitron', 'sans-serif'],
+                        'exo': ['Exo 2', 'sans-serif'],
+                        'rajdhani': ['Rajdhani', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'work-sans': ['Work Sans', 'sans-serif'],
+                        'space-mono': ['Space Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px 5px rgba(0, 217, 255, 0.3)',
+                        'glow-lg': '0 0 25px 10px rgba(0, 217, 255, 0.4)',
+                    }
+                },
+            },
+        };
+    </script>
+    <style>
+        .backdrop-blur {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .animated-underline {
+            position: relative;
+            display: inline-block;
+        }
+
+        .animated-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #00d9ff;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+
+        .animated-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-15px);
+            }
+
+            60% {
+                transform: translateY(-7px);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .count-up {
+            transition: all 1.5s ease-out;
+        }
+
+        .hero-bg {
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark text-text-primary font-inter">
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a class="text-2xl font-exo font-semibold text-primary" href="#">A.I.</a>
+            <div class="hidden md:flex space-x-8">
+                <a class="text-text-secondary hover:text-primary animated-underline" href="#synopsis">Synopsis</a>
+                <a class="text-text-secondary hover:text-primary animated-underline" href="#characters">Characters</a>
+                <a class="text-text-secondary hover:text-primary animated-underline" href="#themes">Themes</a>
+                <a class="text-text-secondary hover:text-primary animated-underline" href="#visuals">Visual Style</a>
+                <a class="text-text-secondary hover:text-primary animated-underline" href="#impact">Impact</a>
+                <a class="text-text-secondary hover:text-primary animated-underline" href="#analysis">Analysis</a>
+            </div>
+            <button class="md:hidden text-text-primary" id="mobile-menu-button">
+                <span class="material-icons">menu</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="hidden fixed inset-0 bg-background-dark/90 backdrop-blur z-40 md:hidden" id="mobile-menu">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a class="text-text-primary text-2xl font-rajdhani mobile-link" href="#synopsis">Synopsis</a>
+            <a class="text-text-primary text-2xl font-rajdhani mobile-link" href="#characters">Characters</a>
+            <a class="text-text-primary text-2xl font-rajdhani mobile-link" href="#themes">Themes</a>
+            <a class="text-text-primary text-2xl font-rajdhani mobile-link" href="#visuals">Visual Style</a>
+            <a class="text-text-primary text-2xl font-rajdhani mobile-link" href="#impact">Impact</a>
+            <a class="text-text-primary text-2xl font-rajdhani mobile-link" href="#analysis">Analysis</a>
+        </div>
+        <button class="absolute top-6 right-6 text-text-primary" id="close-mobile-menu">
+            <span class="material-icons">close</span>
+        </button>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="h-screen w-full flex items-center justify-center relative bg-cover bg-center"
+            style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('/static/img_2/preview4.webp');">
+            <div class="text-center px-4">
+                <h1 class="font-display text-5xl md:text-7xl lg:text-8xl text-text-primary"
+                    style="text-shadow: 0 0 15px rgba(0, 217, 255, 0.5);">
+                    A.I. ARTIFICIAL INTELLIGENCE
+                </h1>
+                <p class="text-text-secondary font-rajdhani text-xl md:text-2xl mt-4">Directed by Steven Spielberg</p>
+                <p class="text-gray-400 font-rajdhani text-base md:text-lg mt-1">2001 • 146 minutes</p>
+            </div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-center text-text-secondary scroll-indicator">
+                <p class="text-sm mb-2">Scroll to explore</p>
+                <span class="material-icons">keyboard_arrow_down</span>
+            </div>
+        </section>
+
+        <!-- Synopsis Section -->
+        <section class="py-20 lg:py-32 container mx-auto px-6 fade-in" id="synopsis">
+            <div class="flex items-center mb-12">
+                <div class="w-16 h-1 bg-primary mr-4"></div>
+                <h2 class="text-4xl font-exo font-semibold">SYNOPSIS</h2>
+            </div>
+            <div class="grid md:grid-cols-10 gap-12 items-center">
+                <div class="md:col-span-6">
+                    <p class="text-text-secondary text-lg leading-relaxed mb-8" style="line-height: 1.8;">
+                        In a future where climate change has submerged coastal cities, a childlike android programmed
+                        with the ability to love embarks on a quest to become real after he is abandoned by his human
+                        family. His journey takes him through a dark and futuristic society, where he befriends other
+                        'mechas' and navigates the complex line between human and machine.
+                    </p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 text-sm font-work-sans">
+                        <div class="text-text-secondary"><strong class="text-text-primary">Director:</strong> Steven
+                            Spielberg</div>
+                        <div class="text-text-secondary"><strong class="text-text-primary">Based on:</strong> "Supertoys
+                            Last All Summer Long" by Brian Aldiss</div>
+                        <div class="text-text-secondary"><strong class="text-text-primary">Screenplay:</strong> Steven
+                            Spielberg</div>
+                        <div class="text-text-secondary"><strong class="text-text-primary">Starring:</strong> Haley Joel
+                            Osment, Jude Law, Frances O'Connor</div>
+                        <div class="text-text-secondary"><strong class="text-text-primary">Runtime:</strong> 146 minutes
+                        </div>
+                        <div class="text-text-secondary"><strong class="text-text-primary">Release:</strong> June 29,
+                            2001</div>
+                    </div>
+                </div>
+                <div class="md:col-span-4">
+                    <img alt="David and his teddy bear" class="rounded-lg shadow-lg w-full h-auto"
+                        src="/static/img_2/preview5.webp" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Characters Section -->
+        <section class="py-20 lg:py-32 bg-black/20 fade-in" id="characters">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-exo font-semibold text-center mb-12">CHARACTERS</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- David -->
+                    <div
+                        class="group relative overflow-hidden rounded-lg bg-gray-900/50 backdrop-blur border border-primary/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow">
+                        <img alt="David - The robotic child"
+                            class="w-full h-96 object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                            src="/static/img_2/preview4.webp" />
+                        <div class="absolute inset-0 bg-black/60"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-2xl font-rajdhani font-medium text-text-primary">David</h3>
+                            <p class="text-sm text-gray-400 mb-2">Haley Joel Osment</p>
+                            <p
+                                class="text-text-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2">
+                                A robotic child programmed to love unconditionally, seeking to become real.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gigolo Joe -->
+                    <div
+                        class="group relative overflow-hidden rounded-lg bg-gray-900/50 backdrop-blur border border-primary/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow">
+                        <img alt="Gigolo Joe"
+                            class="w-full h-96 object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                            src="/static/img_2/preview.webp" />
+                        <div class="absolute inset-0 bg-black/60"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-2xl font-rajdhani font-medium text-text-primary">Gigolo Joe</h3>
+                            <p class="text-sm text-gray-400 mb-2">Jude Law</p>
+                            <p
+                                class="text-text-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2">
+                                A sophisticated 'mecha' companion who helps David on his journey.</p>
+                        </div>
+                    </div>
+
+                    <!-- Monica Swinton -->
+                    <div
+                        class="group relative overflow-hidden rounded-lg bg-gray-900/50 backdrop-blur border border-primary/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow">
+                        <img alt="Monica Swinton"
+                            class="w-full h-96 object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                            src="/static/img_2/monica_swinton.webp" />
+                        <div class="absolute inset-0 bg-black/60"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-2xl font-rajdhani font-medium text-text-primary">Monica Swinton</h3>
+                            <p class="text-sm text-gray-400 mb-2">Frances O'Connor</p>
+                            <p
+                                class="text-text-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2">
+                                David's adoptive mother struggling with grief and loss.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Themes Section -->
+        <section class="py-20 lg:py-32 container mx-auto px-6 fade-in" id="themes">
+            <h2 class="text-4xl font-exo font-semibold text-center mb-16">MAJOR THEMES</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="relative">
+                    <div class="absolute left-6 top-0 h-full w-0.5 bg-primary/20"></div>
+
+                    <div class="flex items-start mb-12 relative">
+                        <div
+                            class="z-10 flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
+                            <span class="material-icons text-primary text-2xl">psychology</span>
+                        </div>
+                        <div class="ml-8">
+                            <h3 class="text-2xl font-rajdhani font-medium text-primary">Humanity & Consciousness</h3>
+                            <p class="text-text-secondary mt-2">What does it mean to be human? Can artificial beings
+                                possess genuine emotions?</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start mb-12 relative">
+                        <div
+                            class="z-10 flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
+                            <span class="material-icons text-primary text-2xl">favorite_border</span>
+                        </div>
+                        <div class="ml-8">
+                            <h3 class="text-2xl font-rajdhani font-medium text-primary">Love & Abandonment</h3>
+                            <p class="text-text-secondary mt-2">The unconditional love of a child and the pain of being
+                                left behind.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start relative">
+                        <div
+                            class="z-10 flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
+                            <span class="material-icons text-primary text-2xl">memory</span>
+                        </div>
+                        <div class="ml-8">
+                            <h3 class="text-2xl font-rajdhani font-medium text-primary">Technology & Ethics</h3>
+                            <p class="text-text-secondary mt-2">The moral implications of creating sentient beings for
+                                our own purposes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visual Style Section -->
+        <section class="py-20 lg:py-32 bg-black/20 fade-in" id="visuals">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-exo font-semibold text-center mb-12">VISUAL STYLE</h2>
+
+                <!-- Carousel Container -->
+                <div class="relative max-w-5xl mx-auto">
+                    <!-- Cards Stack -->
+                    <div class="relative h-[600px] md:h-[700px]">
+                        <!-- Card 1 -->
+                        <div class="visual-card absolute inset-0 transition-all duration-700 ease-in-out" data-card="0">
+                            <div
+                                class="bg-gray-900/50 backdrop-blur rounded-2xl overflow-hidden border border-primary/30 h-full flex flex-col">
+                                <div class="relative h-3/4 overflow-hidden">
+                                    <img alt="Rouge City" class="w-full h-full object-contain bg-black"
+                                        src="/static/img_2/preview.webp" />
+                                    <div
+                                        class="absolute top-4 right-4 bg-primary/20 backdrop-blur px-4 py-2 rounded-full">
+                                        <span class="text-primary font-rajdhani text-sm">Scene 01</span>
+                                    </div>
+                                </div>
+                                <div class="p-8 h-1/4 flex flex-col justify-center">
+                                    <h3 class="text-3xl font-exo font-semibold text-primary mb-3">Rouge City</h3>
+                                    <p class="text-text-secondary text-lg leading-relaxed">A neon-lit dystopian
+                                        metropolis where mechas and humans coexist. The vibrant colors contrast with the
+                                        dark themes of abandonment and desire.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="visual-card absolute inset-0 transition-all duration-700 ease-in-out opacity-0 translate-x-full"
+                            data-card="1">
+                            <div
+                                class="bg-gray-900/50 backdrop-blur rounded-2xl overflow-hidden border border-primary/30 h-full flex flex-col">
+                                <div class="relative h-3/4 overflow-hidden">
+                                    <img alt="The Specialists" class="w-full h-full object-contain bg-black"
+                                        src="/static/img_2/preview6.webp" />
+                                    <div
+                                        class="absolute top-4 right-4 bg-primary/20 backdrop-blur px-4 py-2 rounded-full">
+                                        <span class="text-primary font-rajdhani text-sm">Scene 02</span>
+                                    </div>
+                                </div>
+                                <div class="p-8 h-1/4 flex flex-col justify-center">
+                                    <h3 class="text-3xl font-exo font-semibold text-primary mb-3">The Specialists</h3>
+                                    <p class="text-text-secondary text-lg leading-relaxed">Advanced beings from the
+                                        future who grant David one last wish. Their ethereal appearance represents the
+                                        culmination of evolution and technology.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="visual-card absolute inset-0 transition-all duration-700 ease-in-out opacity-0 translate-x-full"
+                            data-card="2">
+                            <div
+                                class="bg-gray-900/50 backdrop-blur rounded-2xl overflow-hidden border border-primary/30 h-full flex flex-col">
+                                <div class="relative h-3/4 overflow-hidden">
+                                    <img alt="David and the Specialist" class="w-full h-full object-contain bg-black"
+                                        src="/static/img_2/preview8.webp" />
+                                    <div
+                                        class="absolute top-4 right-4 bg-primary/20 backdrop-blur px-4 py-2 rounded-full">
+                                        <span class="text-primary font-rajdhani text-sm">Scene 03</span>
+                                    </div>
+                                </div>
+                                <div class="p-8 h-1/4 flex flex-col justify-center">
+                                    <h3 class="text-3xl font-exo font-semibold text-primary mb-3">The Final Encounter
+                                    </h3>
+                                    <p class="text-text-secondary text-lg leading-relaxed">David meets the advanced
+                                        beings who can grant him one perfect day with his mother. A bittersweet moment
+                                        of fulfillment and loss.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="visual-card absolute inset-0 transition-all duration-700 ease-in-out opacity-0 translate-x-full"
+                            data-card="3">
+                            <div
+                                class="bg-gray-900/50 backdrop-blur rounded-2xl overflow-hidden border border-primary/30 h-full flex flex-col">
+                                <div class="relative h-3/4 overflow-hidden">
+                                    <img alt="Mecha Identity" class="w-full h-full object-contain bg-black"
+                                        src="/static/img_2/preview7.webp" />
+                                    <div
+                                        class="absolute top-4 right-4 bg-primary/20 backdrop-blur px-4 py-2 rounded-full">
+                                        <span class="text-primary font-rajdhani text-sm">Scene 04</span>
+                                    </div>
+                                </div>
+                                <div class="p-8 h-1/4 flex flex-col justify-center">
+                                    <h3 class="text-3xl font-exo font-semibold text-primary mb-3">Mecha Identity</h3>
+                                    <p class="text-text-secondary text-lg leading-relaxed">The duality of artificial
+                                        beings - cold metal exteriors hiding programmed emotions. What defines
+                                        consciousness in a manufactured soul?</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="visual-card absolute inset-0 transition-all duration-700 ease-in-out opacity-0 translate-x-full"
+                            data-card="4">
+                            <div
+                                class="bg-gray-900/50 backdrop-blur rounded-2xl overflow-hidden border border-primary/30 h-full flex flex-col">
+                                <div class="relative h-3/4 overflow-hidden">
+                                    <img alt="Iconic Poster Art" class="w-full h-full object-contain bg-black"
+                                        src="/static/img_2/preview2.webp" />
+                                    <div
+                                        class="absolute top-4 right-4 bg-primary/20 backdrop-blur px-4 py-2 rounded-full">
+                                        <span class="text-primary font-rajdhani text-sm">Scene 05</span>
+                                    </div>
+                                </div>
+                                <div class="p-8 h-1/4 flex flex-col justify-center">
+                                    <h3 class="text-3xl font-exo font-semibold text-primary mb-3">Visual Poetry</h3>
+                                    <p class="text-text-secondary text-lg leading-relaxed">Spielberg's masterful
+                                        cinematography creates haunting imagery that lingers long after viewing. Every
+                                        frame tells a story of hope and heartbreak.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <button
+                        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-primary/20 hover:bg-primary/40 backdrop-blur border border-primary/50 text-primary p-4 rounded-full transition-all duration-300 hover:scale-110"
+                        id="prevCard">
+                        <span class="material-icons">chevron_left</span>
+                    </button>
+                    <button
+                        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-primary/20 hover:bg-primary/40 backdrop-blur border border-primary/50 text-primary p-4 rounded-full transition-all duration-300 hover:scale-110"
+                        id="nextCard">
+                        <span class="material-icons">chevron_right</span>
+                    </button>
+
+                    <!-- Scroll Indicator / Dots -->
+                    <div class="flex justify-center gap-3 mt-8">
+                        <button class="card-dot w-3 h-3 rounded-full bg-primary transition-all duration-300"
+                            data-index="0"></button>
+                        <button class="card-dot w-3 h-3 rounded-full bg-text-secondary/30 transition-all duration-300"
+                            data-index="1"></button>
+                        <button class="card-dot w-3 h-3 rounded-full bg-text-secondary/30 transition-all duration-300"
+                            data-index="2"></button>
+                        <button class="card-dot w-3 h-3 rounded-full bg-text-secondary/30 transition-all duration-300"
+                            data-index="3"></button>
+                        <button class="card-dot w-3 h-3 rounded-full bg-text-secondary/30 transition-all duration-300"
+                            data-index="4"></button>
+                    </div>
+
+                    <!-- Keyboard Hint -->
+                    <p class="text-center text-text-secondary/50 text-sm mt-6 font-space-mono">
+
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="py-20 lg:py-32 container mx-auto px-6 fade-in" id="impact">
+            <h2 class="text-4xl font-exo font-semibold text-center mb-16">CULTURAL IMPACT & RECEPTION</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center mb-16">
+                <div class="bg-gray-900/50 p-6 rounded-lg border border-primary/20">
+                    <p class="text-5xl font-display text-primary count-up" data-target="73">0</p>
+                    <p class="text-text-secondary mt-2 font-rajdhani">Rotten Tomatoes Score</p>
+                </div>
+                <div class="bg-gray-900/50 p-6 rounded-lg border border-primary/20">
+                    <p class="text-5xl font-display text-primary count-up" data-target="235.9">0</p>
+                    <p class="text-text-secondary mt-2 font-rajdhani">$M Box Office Worldwide</p>
+                </div>
+                <div class="bg-gray-900/50 p-6 rounded-lg border border-primary/20">
+                    <p class="text-5xl font-display text-primary count-up" data-target="2">0</p>
+                    <p class="text-text-secondary mt-2 font-rajdhani">Oscar Nominations</p>
+                </div>
+                <div class="bg-gray-900/50 p-6 rounded-lg border border-primary/20">
+                    <p class="text-5xl font-display text-primary count-up" data-target="146">0</p>
+                    <p class="text-text-secondary mt-2 font-rajdhani">Minutes Runtime</p>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="bg-gray-900/30 p-6 rounded-lg">
+                    <h3 class="font-rajdhani text-xl text-primary mb-2">Kubrick's Vision</h3>
+                    <p class="text-text-secondary">Originally conceived by Stanley Kubrick, who spent years developing
+                        the project before his death. The film retains his thematic depth and challenging questions
+                        about consciousness and humanity.</p>
+                </div>
+                <div class="bg-gray-900/30 p-6 rounded-lg">
+                    <h3 class="font-rajdhani text-xl text-primary mb-2">Spielberg's Execution</h3>
+                    <p class="text-text-secondary">Spielberg brought his signature emotional core and filmmaking craft,
+                        creating a unique blend of Kubrick's cerebral concepts with heartfelt storytelling that
+                        resonates deeply.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Section -->
+        <section class="py-20 lg:py-32 bg-cover bg-fixed" id="analysis"
+            style="background-image: linear-gradient(rgba(10, 14, 39, 0.9), rgba(10, 14, 39, 0.9)), url('/static/img_2/preview3.webp');">
+            <div class="container mx-auto px-6 fade-in">
+                <h2 class="text-4xl font-exo font-semibold text-center mb-12">CRITICAL REFLECTION</h2>
+                <div class="max-w-4xl mx-auto">
+                    <blockquote class="border-l-4 border-primary p-8 bg-black/20 backdrop-blur rounded-r-lg">
+                        <p class="text-xl italic text-text-primary leading-loose font-work-sans">
+                            "Spielberg's A.I. raises profound questions about consciousness, identity, and the nature of
+                            love. The film challenges viewers to reconsider what separates humanity from artificial
+                            intelligence, forcing an uncomfortable look at our own capacity for both affection and
+                            cruelty."
+                        </p>
+                        <p class="text-text-secondary mt-6">
+                            Building on Stanley Kubrick's original vision and Brian Aldiss's short story, the film
+                            explores the unsettling possibility of creating beings that can love more purely than their
+                            creators. It's a poignant, often melancholic, fairy tale for the technological age that
+                            questions the very essence of what makes us human.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-center py-8">
+        <div class="container mx-auto px-6">
+            <p class="text-sm text-text-secondary">Presented by Your Name • Film Analysis Project • 2025</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a class="text-gray-400 hover:text-primary transition-colors text-sm"
+                    href="https://www.imdb.com/title/tt0212720/" target="_blank">IMDb</a>
+                <a class="text-gray-400 hover:text-primary transition-colors text-sm"
+                    href="https://www.rottentomatoes.com/m/ai_artificial_intelligence" target="_blank">Rotten
+                    Tomatoes</a>
+                <a class="text-gray-400 hover:text-primary transition-colors text-sm" href="#" target="_blank">Original
+                    Short Story</a>
+            </div>
+            <p class="text-xs text-gray-500 mt-6">© 2025. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navbar scroll effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-background-dark/80', 'backdrop-blur', 'shadow-lg');
+                } else {
+                    header.classList.remove('bg-background-dark/80', 'backdrop-blur', 'shadow-lg');
+                }
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            const toggleMenu = () => mobileMenu.classList.toggle('hidden');
+
+            mobileMenuButton.addEventListener('click', toggleMenu);
+            closeMobileMenuButton.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            // Fade-in animation on scroll
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = {
+                threshold: 0.2,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const appearOnScroll = new IntersectionObserver(function (entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('visible');
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+
+            // Number count-up animation
+            const counters = document.querySelectorAll('.count-up');
+            const speed = 200;
+
+            const animateCounter = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const isFloat = target.toString().includes('.');
+                let count = 0;
+
+                const updateCount = () => {
+                    const inc = target / speed;
+                    count += inc;
+
+                    if (count < target) {
+                        if (isFloat) {
+                            counter.innerText = count.toFixed(1);
+                        } else {
+                            counter.innerText = Math.ceil(count);
+                        }
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            };
+
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                })
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => {
+                counterObserver.observe(counter);
+            });
+
+            // Visual Style Carousel
+            let currentCard = 0;
+            const cards = document.querySelectorAll('.visual-card');
+            const dots = document.querySelectorAll('.card-dot');
+            const totalCards = cards.length;
+
+            const showCard = (index) => {
+                cards.forEach((card, i) => {
+                    if (i === index) {
+                        card.classList.remove('opacity-0', 'translate-x-full', '-translate-x-full');
+                        card.classList.add('opacity-100', 'translate-x-0');
+                    } else if (i < index) {
+                        card.classList.remove('opacity-100', 'translate-x-0', 'translate-x-full');
+                        card.classList.add('opacity-0', '-translate-x-full');
+                    } else {
+                        card.classList.remove('opacity-100', 'translate-x-0', '-translate-x-full');
+                        card.classList.add('opacity-0', 'translate-x-full');
+                    }
+                });
+
+                // Update dots
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.add('bg-primary', 'w-8');
+                        dot.classList.remove('bg-text-secondary/30', 'w-3');
+                    } else {
+                        dot.classList.remove('bg-primary', 'w-8');
+                        dot.classList.add('bg-text-secondary/30', 'w-3');
+                    }
+                });
+
+                currentCard = index;
+            };
+
+            const nextCard = () => {
+                const next = (currentCard + 1) % totalCards;
+                showCard(next);
+            };
+
+            const prevCard = () => {
+                const prev = (currentCard - 1 + totalCards) % totalCards;
+                showCard(prev);
+            };
+
+            // Button controls
+            document.getElementById('nextCard').addEventListener('click', nextCard);
+            document.getElementById('prevCard').addEventListener('click', prevCard);
+
+            // Dot controls
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => showCard(index));
+            });
+
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') nextCard();
+                if (e.key === 'ArrowLeft') prevCard();
+            });
+
+            // Scroll detection in visual section
+            const visualSection = document.getElementById('visuals');
+            let lastScrollY = 0;
+            let scrollTimeout;
+
+            const handleScroll = () => {
+                if (!visualSection) return;
+
+                const rect = visualSection.getBoundingClientRect();
+                const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+
+                if (isInView) {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        const currentScrollY = window.scrollY;
+                        if (currentScrollY > lastScrollY) {
+                            nextCard();
+                        } else if (currentScrollY < lastScrollY) {
+                            prevCard();
+                        }
+                        lastScrollY = currentScrollY;
+                    }, 150);
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll);
+
+            // Initialize
+            showCard(0);
+        });
+
+        // Detectar cuando llegas al final de la página para redirigir al chatbot
+        const footerElement = document.querySelector('footer');
+
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Espera 1 segundo para que el usuario vea que llegó al final
+                    setTimeout(() => {
+                        window.location.href = '/chat-page';
+                    }, 1000);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        if (footerElement) {
+            footerObserver.observe(footerElement);
+        }
+    </script>
+</body>
+
+</html>
